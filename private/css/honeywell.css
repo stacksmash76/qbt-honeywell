@@ -87,6 +87,7 @@
   --primary-3: var(--sand-4);
   --primary-4: var(--sand-5);
   --primary-5: var(--sand-6);
+  --primary-6-2: color-mix(in srgb, var(--primary-6), var(--primary-7));
   --primary-6: var(--sand-7);
   --primary-7: var(--sand-8);
   --primary-8: var(--sand-9);
@@ -299,7 +300,21 @@ a {
 
 .torrentTable th:hover,
 .dynamicTable th:hover {
-  background-color: var(--primary-4) !important;
+  background-color: var(--primary-3) !important;
+}
+
+div#torrentsTableFixedHeaderDiv > table th:hover {
+  border-right: 1px solid var(--primary-6-2) !important;
+}
+
+div#torrentsTableDiv > table > tbody > tr:not(.selected) > td.headerCellHover {
+  background: var(--primary-4) !important;
+  border-bottom: 1px solid var(--primary-6-2) !important;
+  border-right: 1px solid var(--primary-6-2) !important;
+}
+
+div#torrentsTableDiv > table > tbody > tr:not(.selected):nth-child(odd) > td.headerCellHover {
+  background: var(--primary-5) !important;
 }
 
 .dynamicTable th {
@@ -539,7 +554,7 @@ h3 {
   filter: brightness(100%);
 }
 
-#torrentsTableDiv tr.selected > td > img {
+#torrentsTableDiv tr.selected > td > img:not([src="icons/completed.svg"]) {
   filter: brightness(300%) !important;
 }
 
@@ -670,7 +685,7 @@ input[type="button"]:hover {
 /* CREDITS
 ----------------------------------------------------------------------------------------------*/
 div#aboutpage_content.mochaContent h3:nth-child(2)::after {
-  content: "\Awith the woq theme. Based off nightwalker. Made by stacksmash76 and gl0ryus.\A\A";
+  content: "\Awith the Honeywell theme. Based off nightwalker. Made by stacksmash76 and gl0ryus.\A\A";
   white-space: pre-wrap;
   font-weight: normal;
   color: rgb(255, 255, 255);
@@ -979,9 +994,8 @@ img[src="icons/stalledUP.svg"] {
   object-position: -999999px 999999px;
 }
 
-img[src="icons/seeding.svg"],
 img[src="icons/uploading.svg"] {
-  background: url("../icons/seeding.png");
+  background: url("../icons/seeding.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-origin: content-box;

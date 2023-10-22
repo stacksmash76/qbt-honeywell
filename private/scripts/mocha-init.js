@@ -204,7 +204,7 @@ const initializeWindows = function() {
             paddingVertical: 0,
             paddingHorizontal: 0,
             width: 424,
-            height: 80
+            height: 90
         });
     };
 
@@ -222,7 +222,7 @@ const initializeWindows = function() {
                 paddingVertical: 0,
                 paddingHorizontal: 0,
                 width: 424,
-                height: 80
+                height: 90
             });
         }
     };
@@ -336,7 +336,7 @@ const initializeWindows = function() {
             paddingVertical: 0,
             paddingHorizontal: 0,
             width: 424,
-            height: 80
+            height: 90
         });
     };
 
@@ -371,7 +371,7 @@ const initializeWindows = function() {
                 paddingVertical: 0,
                 paddingHorizontal: 0,
                 width: 424,
-                height: 80
+                height: 90
             });
         }
     };

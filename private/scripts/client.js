@@ -268,6 +268,17 @@ window.addEvent('load', function() {
     let showTopToolbar = true;
     if (LocalPreferences.get('show_top_toolbar') !== null)
         showTopToolbar = LocalPreferences.get('show_top_toolbar') == "true";
+
+    window.linuxIsoMode = false;
+    if (LocalPreferences.get('linux_iso_mode') !== null)
+        window.linuxIsoMode = LocalPreferences.get('linux_iso_mode') == "true";
+
+    const updateLinuxIsoModeIcon = function(enabled) {
+        $('linuxIsoMode').src = enabled ? 'icons/iso-mode-on.svg' : 'icons/iso-mode-off.svg';
+    };
+
+    updateLinuxIsoModeIcon(window.linuxIsoMode);
+
     if (!showTopToolbar) {
         $('showTopToolbarLink').firstChild.style.opacity = '0';
         $('mochaToolbar').addClass('invisible');
@@ -815,6 +826,14 @@ window.addEvent('load', function() {
                 updateAltSpeedIcon(alternativeSpeedLimits);
             }
         }).send();
+    });
+
+    $('linuxIsoMode').addEvent('click', function() {
+        window.linuxIsoMode = !window.linuxIsoMode;
+        LocalPreferences.set('linux_iso_mode', window.linuxIsoMode.toString());
+
+        torrentsTable.updateTable(true);
+        updateLinuxIsoModeIcon(window.linuxIsoMode);
     });
 
     $('DlInfos').addEvent('click', globalDownloadLimitFN);

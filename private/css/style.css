@@ -249,6 +249,7 @@ a.propButton img {
     width: 16px;
     height: 16px;
     margin-bottom: -4px;
+    margin-right: 4px;
     -ms-interpolation-mode: bicubic;
 }
 

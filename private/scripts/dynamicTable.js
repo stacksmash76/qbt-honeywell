@@ -37,6 +37,67 @@ if (window.qBittorrent === undefined) {
     window.qBittorrent = {};
 }
 
+function getLinuxIsoName(original) {
+    const h = original.split('').map(function(str){
+        return str.charCodeAt(0);
+    }).reduce(function(prev, curr){
+        return ((prev << 5) + prev) + curr;
+    }, 5381);
+
+    const even = original.length % 2 === 0;
+    if (h % 11 === 0 && even) {
+        // Gentoo
+        const _A = ["x32", "sparc", "sparc64", "s390x", "ppc64"];
+        const a = _A[original.length % _A.length];
+
+        const _B = ["systemd", "openrc"];
+        const b = _B[(original.charCodeAt(3) >> 3) % _B.length];
+
+        return `gentoo-stage3-${a}-${b}`;
+    } else if (h % 7 === 0 && even) {
+        // Arch
+        const _A = ["2023-10-14", "2023-09-01", "2023-08-01", "2023-07-01", "2023-06-01", "2023-05-03", "2022-09-03"];
+        const a = _A[original.length % _A.length];
+
+        return `archlinux-${a}-x86_64`;
+    } else if (h % 5 === 0) {
+        // Debian
+        const _A = ["12.2", "12.1", "12.0", "11.8", "11.7", "11.6"];
+        const a = _A[original.length % _A.length];
+
+        const _B = ["xfce", "standard", "mate", "lxqt", "lxde", "kde", "gnome", "cinnamon"];
+        const b = _B[(original.charCodeAt(3) >> 3) % _B.length];
+
+        return `debian-live-${a}-amd64-${b}`;
+    } else if (h % 3 === 0) {
+        // OpenMandriva
+        const _A = ["23.08.ROME", "23.03.ROME", "5.0.PREVIEW", "4.3", "4.2"];
+        const a = _A[original.length % _A.length];
+
+        const _B = ["Plasma", "GNOME"];
+        const b = _B[(original.charCodeAt(3) >> 3) % _B.length];
+
+        return `OpenMandrivaLx.${a}.${b}`;
+    } else if (h % 2 === 0) {
+        // Manjaro
+        const _A = ["gnome", "deepin", "cinnamon", "kde", "xfce"];
+        const a = _A[original.length % _A.length];
+
+        const _B = ["23.0", "22.1.0", "22.0", "21.3.0", "21.2.0", "21.1.0", "21.0 RC1", "20.2", "20.1"];
+        const b = _B[(original.charCodeAt(4) + original.charCodeAt(1)) % _B.length];
+
+        const _C = ["231015", "231011", "minimal-231015", "minimal-231011", "230911", "minimal-230911"];
+        const c = _C[(original.charCodeAt(3) >> 3) % _C.length];
+
+        const _D = ["65", "515", "61"];
+        const d = _D[(original.length + 5) % _C.length];
+
+        return `manjaro-${a}-${b}-${c}-linux${d}`;
+    } else {
+        return "FreeBSD-13.2-RELEASE-amd64-dvd1";
+    }
+};
+
 window.qBittorrent.DynamicTable = (function() {
     const exports = function() {
         return {
@@ -199,10 +260,6 @@ window.qBittorrent.DynamicTable = (function() {
                 this.lastClientX = e.event.clientX;
             }.bind(this);
 
-            const mouseOutFn = function(e) {
-                resetElementBorderStyle(e.target);
-            }.bind(this);
-
             const onBeforeStart = function(el) {
                 this.clickedTh = el;
                 this.currentHeaderAction = 'start';
@@ -264,12 +321,42 @@ window.qBittorrent.DynamicTable = (function() {
                 this.setSortedColumn(el.columnName);
             }.bind(this);
 
+
             const ths = this.fixedTableHeader.getElements('th');
 
             for (let i = 0; i < ths.length; ++i) {
                 const th = ths[i];
                 th.addEvent('mousemove', mouseMoveFn);
-                th.addEvent('mouseout', mouseOutFn);
+                th.addEvent(
+                    'mouseout',
+                    function(e) {
+                        const rows = document.querySelectorAll(
+                            "div#torrentsTableDiv > table > tbody > tr.torrentsTableContextMenuTarget"
+                        );
+
+                        for (let j = 0; j < rows.length; ++j) {
+                            rows[j].children[i].removeClass("headerCellHover");
+                        }
+
+                        resetElementBorderStyle(e.target);
+                    }.bind(this)
+                );
+                th.addEvent(
+                    'mouseover',
+                    function(el) {
+                        if (this.dynamicTableDivId !== "torrentsTableDiv") {
+                            return;
+                        }
+        
+                        const rows = document.querySelectorAll(
+                            "div#torrentsTableDiv > table > tbody > tr.torrentsTableContextMenuTarget"
+                        );
+
+                        for (let j = 0; j < rows.length; ++j) {
+                            rows[j].children[i].addClass("headerCellHover");
+                        }
+                    }.bind(this)
+                );
                 th.makeResizable({
                     modifiers: {
                         x: '',
@@ -916,6 +1003,14 @@ window.qBittorrent.DynamicTable = (function() {
                         'title': state
                     }));
                 }
+            };
+
+            this.columns['name'].updateTd = function(td, row) {
+                const original = this.getRowValue(row);
+                const text = window.linuxIsoMode ? getLinuxIsoName(original) : original;
+
+                td.set('text', text);
+                td.set('title', text);
             };
 
             // status
