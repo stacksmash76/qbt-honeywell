@@ -1014,7 +1014,7 @@ window.qBittorrent.DynamicTable = (function() {
                 const text = window.linuxIsoMode ? getLinuxIsoName(original) : original;
 
                 td.set('text', text);
-                td.set('title', text);
+                td.set('title', original);
             };
 
             // status
