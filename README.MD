@@ -5,8 +5,8 @@
 - Working on 4.3.1--4.4.5
 - Does not work in 4.5 and after (will be supported when qBt devs fix WebUI translation)
 
-[Small preview](screens/1.png)
-[Larger preview](screens/2.png)
+![Small preview](/screens/1.png)
+![Larger preview](/screens/2.png)
 
 # Feature set
 1. Honeygold has a 'Linux ISO mode' which redact your torrent names and replaces them with Linux ISO names (bottom right corner - the eye icon)
@@ -28,20 +28,20 @@
 ### Linux
 1. `sudo -i`
 2. `mkdir -p && cd /opt`
-3. `git clone https://github.com/stacksmash76/qbt-honeygold.git honeygold`
-4. `chown -R nobody:nogroup honeygold`
+3. `git clone https://github.com/stacksmash76/qbt-honeywell.git honeywell`
+4. `chown -R nobody:nogroup honeywell`
 
 
 ### Activate Alterative WebUI in qBittorrent
 1. Under `Tools->Preferences->WebUI` enable `Use alternative WebUI`.
-2. Choose a location that points to the `honeygold` folder, i.e. `/opt/honeygold/`
+2. Choose a location that points to the `honeywell` folder, i.e. `/opt/honeywell/`
 3. Restart qBittorrent or refresh your browser for changes to take effect.
 
 
 You can also change these settings via the config file, which is usually located at `~/.config/qBittorrent/qBittorrent.conf`. The relevant entries are:
 
 - `WebUI\AlternativeUIEnabled=true`
-- `WebUI\RootFolder=/opt/honeygold/`
+- `WebUI\RootFolder=/opt/honeywell/`
 
 (If something breaks for any reason whatsoever, you can also use this method to revert any bad changes if the WebUI is unresponsive)
 
