@@ -38,6 +38,10 @@ if (window.qBittorrent === undefined) {
 }
 
 function getLinuxIsoName(original) {
+    if (original.length <= 5) {
+        return "FreeBSD-13.2-RELEASE-amd64-dvd1";
+    }
+    
     const h = original.split('').map(function(str){
         return str.charCodeAt(0);
     }).reduce(function(prev, curr){
