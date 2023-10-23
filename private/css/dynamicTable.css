@@ -50,12 +50,11 @@ tr.dynamicTableHeader {
 }
 
 .dynamicTable th {
-    background-color: #eee;
+    background-color: var(--primary-1);
+    color: var(--primary-12);
     padding: 4px;
     white-space: nowrap;
-    border-right-color: #ccc;
-    border-right-style: solid;
-    border-right-width: 1px;
+    border-right: 1px solid var(--primary-3);
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;

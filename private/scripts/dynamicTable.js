@@ -334,15 +334,34 @@ window.qBittorrent.DynamicTable = (function() {
                 th.addEvent(
                     'mouseout',
                     function(e) {
+                        resetElementBorderStyle(e.target);
+
+                        if (this.dynamicTableDivId !== "torrentsTableDiv") {
+                            return;
+                        }
+
                         const rows = document.querySelectorAll(
                             "div#torrentsTableDiv > table > tbody > tr.torrentsTableContextMenuTarget"
                         );
 
+                        if (!rows.length || rows[0].children.length < i) {
+                            return;
+                        }
+
+                        if (!rows[0].children[i].hasClass("headerCellHover")) {
+                            return;
+                        }
+
                         for (let j = 0; j < rows.length; ++j) {
+                            if (i !== 0) {
+                                rows[j].children[i - 1].removeClass("headerCellHoverBorder");
+                            }
                             rows[j].children[i].removeClass("headerCellHover");
                         }
 
-                        resetElementBorderStyle(e.target);
+                        if (i !== 0) {
+                            ths[i - 1].removeClass("headerCellHoverBorder");
+                        }
                     }.bind(this)
                 );
                 th.addEvent(
@@ -356,8 +375,23 @@ window.qBittorrent.DynamicTable = (function() {
                             "div#torrentsTableDiv > table > tbody > tr.torrentsTableContextMenuTarget"
                         );
 
+                        if (!rows.length || rows[0].children.length < i) {
+                            return;
+                        }
+
+                        if (rows[0].children[i].hasClass("headerCellHover")) {
+                            return;
+                        }
+
                         for (let j = 0; j < rows.length; ++j) {
+                            if (i !== 0) {
+                                rows[j].children[i - 1].addClass("headerCellHoverBorder");
+                            }
                             rows[j].children[i].addClass("headerCellHover");
+                        }
+
+                        if (i !== 0) {
+                            ths[i - 1].addClass("headerCellHoverBorder");
                         }
                     }.bind(this)
                 );

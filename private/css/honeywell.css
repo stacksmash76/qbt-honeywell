@@ -304,21 +304,26 @@ a {
 }
 
 div#torrentsTableFixedHeaderDiv > table th:hover {
-  border-right: 1px solid var(--primary-6-2) !important;
+  border-right: 1px solid var(--primary-7) !important;
+}
+
+th.headerCellHoverBorder,
+td.headerCellHoverBorder {
+  border-right: 1px solid var(--primary-7) !important;
 }
 
 div#torrentsTableDiv > table > tbody > tr:not(.selected) > td.headerCellHover {
-  background: var(--primary-4) !important;
+  background: var(--primary-5) !important;
   border-bottom: 1px solid var(--primary-6-2) !important;
-  border-right: 1px solid var(--primary-6-2) !important;
+  border-right: 1px solid var(--primary-7) !important;
 }
 
 div#torrentsTableDiv > table > tbody > tr:not(.selected):nth-child(odd) > td.headerCellHover {
-  background: var(--primary-5) !important;
+  background: var(--primary-6) !important;
 }
 
 .dynamicTable th {
-  border-right-color: var(--primary-3) !important;
+  border-right-color: var(--primary-3);
 }
 
 .torrentTable tr,
