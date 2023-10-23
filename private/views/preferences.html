@@ -1978,15 +1978,15 @@
 
         function importLocalStorage() {
             try {
+                const jsonString = $("localstorage_import").getProperty("value");
+                const json = JSON.parse(jsonString);
+
                 if ($("localstorage_clear_old").getProperty("checked")) {
                     console.log("Clearing localStorage...");
                     localStorage.clear();
                     console.log("  --> OK!");
                 }
 
-                const jsonString = $("localstorage_import").getProperty("value");
-
-                const json = JSON.parse(jsonString);
                 for (const key of Object.keys(json)) {
                     localStorage.setItem(key, json[key]);
                 }
