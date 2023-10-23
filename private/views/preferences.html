@@ -1232,6 +1232,36 @@
     </fieldset>
 </div>
 
+<div id="LocalStorageTab" class="PrefTab invisible">
+    <fieldset class="settings">
+        <legend>Export</legend>
+        <input type="button" value="Copy to clipboard" onclick="qBittorrent.Preferences.copyLocalStorage();">
+    </fieldset>
+    <fieldset class="settings">
+        <legend>Import localStorage</legend>
+        <p>
+            This will override <span style="font-weight: bold;">conflicting</span> local settings!<br/>
+            Check your browser's DevTools console if you suspect the import did not work.
+        </p>
+        <div class="formRow">
+            <input type="checkbox" id="localstorage_clear_old" />
+            <label for="localstorage_clear_old">Clear all current localStorage settings before importing</label>
+        </div>
+
+        <div class="formRow" style="margin-top: 5px;">
+            <label for="localstorage_import">Paste localStorage JSON to import:</label>
+            <textarea id="localstorage_import" rows="5" cols="48" style="display: block;"></textarea>
+        </div>
+
+        <div class="formRow" style="margin-top: 5px;">
+            <input type="button" value="Import" onclick="qBittorrent.Preferences.importLocalStorage();">
+        </div>
+
+        <h2 style="margin-top: 12px;">After clicking 'Import', no need to click 'Save' below!</h2>
+        <p>Don't forget to <span style="font-weight: bold;">refresh</span> the page after importing.</p>
+    </fieldset>
+</div>
+
 <div style="text-align: center; margin-top: 1em;"><input type="button" value="QBT_TR(Save)QBT_TR[CONTEXT=HttpServer]" onclick="qBittorrent.Preferences.applyPreferences();" /></div>
 
 <script>
@@ -1273,7 +1303,9 @@
                 updateWebUICustomHTTPHeadersSettings: updateWebUICustomHTTPHeadersSettings,
                 updateDynDnsSettings: updateDynDnsSettings,
                 registerDynDns: registerDynDns,
-                applyPreferences: applyPreferences
+                applyPreferences: applyPreferences,
+                importLocalStorage: importLocalStorage,
+                copyLocalStorage: copyLocalStorage
             };
         };
 
@@ -1934,6 +1966,36 @@
                 }
             }).send();
         };
+
+        function copyLocalStorage() {
+            try {
+                navigator.clipboard.writeText(JSON.stringify(localStorage));
+                console.log("OK: Copied localStorage to clipboard");
+            } catch (err) {
+                console.error("ERR: Failed to copy localStorage to clipboard: ", err);
+            }
+        }
+
+        function importLocalStorage() {
+            try {
+                if ($("localstorage_clear_old").getProperty("checked")) {
+                    console.log("Clearing localStorage...");
+                    localStorage.clear();
+                    console.log("  --> OK!");
+                }
+
+                const jsonString = $("localstorage_import").getProperty("value");
+
+                const json = JSON.parse(jsonString);
+                for (const key of Object.keys(json)) {
+                    localStorage.setItem(key, json[key]);
+                }
+
+                console.log("OK: Imported localStorage successfully");
+            } catch (err) {
+                console.error("ERR: Failed to import localStorage JSON: ", err);
+            }
+        }
 
         const applyPreferences = function() {
             const settings = new Hash();

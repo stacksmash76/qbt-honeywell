@@ -483,16 +483,19 @@ ul.filterList li:not(.selectedFilter):hover {
 .mochaToolbarWrapper {
   width: 100%;
   position: relative;
-  height: 29px;
+  height: fit-content !important;
   margin-bottom: -3px;
   overflow: hidden;
   border-top: unset;
   border-bottom: 1px solid var(--primary-4);
+  background: var(--primary-3) !important;
 }
 
 .mochaToolbar {
+  position: relative;
+  bottom: -2px;
+  height: fit-content !important;
   border-top-color: var(--primary-3) !important;
-  background: var(--primary-3) !important;
   padding-top: 4px;
 }
 
