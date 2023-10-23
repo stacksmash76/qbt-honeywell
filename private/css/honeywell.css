@@ -312,10 +312,13 @@ td.headerCellHoverBorder {
   border-right: 1px solid var(--primary-7) !important;
 }
 
-div#torrentsTableDiv > table > tbody > tr:not(.selected) > td.headerCellHover {
-  background: var(--primary-5) !important;
+div#torrentsTableDiv > table > tbody > tr > td.headerCellHover {
   border-bottom: 1px solid var(--primary-6-2) !important;
   border-right: 1px solid var(--primary-7) !important;
+}
+
+div#torrentsTableDiv > table > tbody > tr:not(.selected) > td.headerCellHover {
+  background: var(--primary-5) !important;
 }
 
 div#torrentsTableDiv > table > tbody > tr:not(.selected):nth-child(odd) > td.headerCellHover {
