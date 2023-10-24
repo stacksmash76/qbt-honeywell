@@ -264,20 +264,24 @@ window.addEvent('load', function() {
     });
     initializeWindows();
 
-    // Show Top Toolbar is enabled by default
-    let showTopToolbar = true;
-    if (LocalPreferences.get('show_top_toolbar') !== null)
-        showTopToolbar = LocalPreferences.get('show_top_toolbar') == "true";
-
-    window.linuxIsoMode = false;
-    if (LocalPreferences.get('linux_iso_mode') !== null)
-        window.linuxIsoMode = LocalPreferences.get('linux_iso_mode') == "true";
+    window.linuxIsoMode = LocalPreferences.get('linux_iso_mode', "") == "true";
 
     const updateLinuxIsoModeIcon = function(enabled) {
         $('linuxIsoMode').src = enabled ? 'icons/iso-mode-on.svg' : 'icons/iso-mode-off.svg';
     };
 
     updateLinuxIsoModeIcon(window.linuxIsoMode);
+
+    let minimalMode = LocalPreferences.get("minimal_mode", "") == "true";
+
+    const updateMinimalModeIcon = function(enabled) {
+        $('minimalMode').src = enabled ? 'icons/minimal-mode-on.svg' : 'icons/minimal-mode-off.svg';
+    };
+
+    updateMinimalModeIcon(minimalMode);
+
+    // Show Top Toolbar is enabled by default
+    let showTopToolbar = LocalPreferences.get('show_top_toolbar', "true") == "true";
 
     if (!showTopToolbar) {
         $('showTopToolbarLink').firstChild.style.opacity = '0';
@@ -834,6 +838,14 @@ window.addEvent('load', function() {
 
         torrentsTable.updateTable(true);
         updateLinuxIsoModeIcon(window.linuxIsoMode);
+    });
+
+    $('minimalMode').addEvent('click', function() {
+        minimalMode = !minimalMode;
+        LocalPreferences.set('minimal_mode', minimalMode.toString());
+
+        torrentsTable.updateTable(true);
+        updateMinimalModeIcon(minimalMode);
     });
 
     $('DlInfos').addEvent('click', globalDownloadLimitFN);

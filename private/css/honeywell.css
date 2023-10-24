@@ -250,7 +250,6 @@ a {
   padding: 4px 0 4px 4px;
 }
 
-
 #desktopNavbar > ul > li > ul > li:first-child > a {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -1428,11 +1427,6 @@ div#error_msg:not(:empty) {
   padding: 4px 0;
   height: auto !important;
 }
-
-/* li.divider {
-    border-top: 1px solid rgba(255, 255, 255, .25) !important;
-} */
-
 
 #loginform #login {
   width: 100%;

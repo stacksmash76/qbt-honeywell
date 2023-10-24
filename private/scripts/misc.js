@@ -95,9 +95,9 @@ window.qBittorrent.Misc = (function() {
     /*
      * JS counterpart of the function in src/misc.cpp
      */
-    const friendlyDuration = function(seconds, maxCap = -1) {
+    const friendlyDuration = function(seconds, maxCap = -1, elapsed = "∞") {
         if (seconds < 0 || ((seconds >= maxCap) && (maxCap >= 0)))
-            return "∞";
+            return elapsed;
         if (seconds === 0)
             return "0";
         if (seconds < 60)

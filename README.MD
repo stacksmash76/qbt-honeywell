@@ -9,10 +9,13 @@
 ![Larger preview](/screens/2.png)
 
 # Feature set
-1. Honeygold has a 'Linux ISO mode' which redact your torrent names and replaces them with Linux ISO names (bottom right corner - the eye icon)
-2. 'Last Activity' column functions normally (compared to Nightwalker)
-3. The auxiliary windows are properly rendered (compared to Nightwalker)
-4. Has nice ratio highlights:
+1. 'Linux ISO mode' which redacts the names of your torrents and replaces them with Linux ISO names (bottom right corner - the eye icon)
+2. 'Minimal mode' which removes clutter from the torrent table (e.g. 0 KiB/s DL/UL speed, 0 seeds, etc; bottom right corner - the `|||` icon)
+3. 'Last Activity' column functions normally (compared to Nightwalker)
+4. The auxiliary windows are properly rendered (compared to Nightwalker)
+5. When the torrents table column header is hovered, all column cells will be highlighted for easy screening
+6. You can export your localStorage and import across multiple instances (for replicating the same column order/table styles/etc; Settings -> Local Storage)
+7. Has nice ratio highlights:
 - ![#8f8f8f](https://placehold.co/15x15/8f8f8f/8f8f8f.png) `< 1`
 - ![#ffffff](https://placehold.co/15x15/ffffff/ffffff.png) `< 2`
 - ![#1eff00](https://placehold.co/15x15/1eff00/1eff00.png) `< 10`
