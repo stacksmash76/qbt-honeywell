@@ -707,6 +707,10 @@ div#aboutpage_content.mochaContent h3:nth-child(2)::after {
   color: var(--color-RatioPoor);
 }
 
+tr.selected > td.RatioPoor {
+  color: var(--primary-11);
+}
+
 .RatioCommon {
   color: var(--color-RatioCommon);
 }
