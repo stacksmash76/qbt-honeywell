@@ -1,4 +1,4 @@
-# Honeygold
+# Honeywell
 **_An easy-on-the-eyes dark theme with gold highlights for qBittorrent_**
 
 ### Supported qBittorrent versions
